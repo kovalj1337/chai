@@ -42,15 +42,18 @@
         $timeForChefir = 10;
         $cup = 250;
         if ($voda) {
-            $howmuchAddSugar = ($minValueVoda * $sugar) / $voda;
-            echo ($howmuchAddSugar);
+            $howMuchAddSugar = $minValueVoda * $sugar / $voda;
+            
         }
         if($voda < $cup || $voda > $cup ||$voda == $cup){
             for($voda; $voda >= 0; $voda -= $cup){
                 if($voda <= $cup || $voda >= $cup || $voda == $cup){
                     for($i = 50; $i <= $cup && $i <= $voda; $i += $minValueVoda){
                         echo("Налито \n" . $i ."\n води");
+                        $howMuchAddSugar += $howMuchAddSugar;
                     }
+                    echo("Насипано " . $howMuchAddSugar . "ложок цукру");
+                    echo("Чашка повна");
                 }
             }
         }
