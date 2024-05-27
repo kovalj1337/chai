@@ -36,21 +36,26 @@
         } else{
             $chai = "0";
         }
-        $minValueVoda = 50;
+        $cup = 250;
         $timeForEasy = 2;
         $timeForMedium = 5;
         $timeForChefir = 10;
-        $cup = 250;
-        $howMuchAddSugar = ($minValueVoda * $sugar / $voda) * 5;
-        
+        $minValueVoda = 50;
         if($voda < $cup || $voda > $cup ||$voda == $cup){
             for($voda; $voda >= 0; $voda -= $cup){
                 if($voda <= $cup || $voda >= $cup || $voda == $cup){
                     for($i = 50; $i <= $cup && $i <= $voda; $i += $minValueVoda){
+                        $result = ($minValueVoda * $sugar / $voda) * 5; 
                         echo("Налито \n" . $i ."\n води");
-                        
                     }
-                    echo("Насипано " . $howMuchAddSugar . "ложок цукру");
+                    if($voda <= 250){
+                        $sugar = $sugar * $minValueVoda / $cup;
+                        echo("Насипано " . $sugar . "ложок цукру");
+                    }else{
+                        $result = ($minValueVoda * $sugar / $voda) * 5; 
+                        $sugar -= $result;
+                        echo("Насипано " . $result . "ложок цукру");
+                    }
                     echo("Чашка повна");
                 }
             }
