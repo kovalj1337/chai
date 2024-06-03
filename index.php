@@ -25,6 +25,40 @@
             <label for="medium">Середній</label>
             <input type="radio" name="time" value="10" id="chefir">
             <label for="chefir">Сильний</label>
+            <div class="dobavki">
+                <p>
+                    <input type="checkbox" name = "dobavki" value="5" id="milk">
+                    <label for="milk">Додати молочка +5гривн</label>
+                </p>
+                <p>
+                    <input type="checkbox" name = "dobavki" value="6" id="sirop">
+                    <label for="sirop">Додати сиропа +6гривн</label>
+                </p>
+                <p>
+                    <input type="checkbox" name = "dobavki" value="7" id="apelsin">
+                    <label for="apelsin">Додати апельсина +7гривн</label>
+                </p>
+                <p>
+                    <input type="checkbox" name = "dobavki" value="4" id="korica">
+                    <label for="korica">Додати кориці +4гривн</label>
+                </p>
+                <p>
+                    <input type="checkbox" name = "dobavki" value="12" id="limonayaverbena">
+                    <label for="limonayaverbena">Додати лимонної вербени +12гривн</label>
+                </p>
+                <p>
+                    <input type="checkbox" name = "dobavki" value="3" id="myata">
+                    <label for="myata">Додати мяти +3гривн</label>
+                </p>
+                <p>
+                    <input type="checkbox" name = "dobavki" value="4" id="imbyrj">
+                    <label for="imbyrj">Додати імбіря +4гривн</label>
+                </p>
+                <p>
+                    <input type="checkbox" name = "dobavki" value="5" id="klenovij-sirop">
+                    <label for="klenovij-sirop">Додати кленового сиропа +5гривн</label>
+                </p>
+            </div>
         </div>
     </form>
     <?php
@@ -44,7 +78,7 @@
         $minValueVoda = 50;
         if($voda < $cup || $voda > $cup ||$voda == $cup){
             for($voda; $voda >= 0; $voda -= $cup){
-                if($voda <= $cup || $voda >= $cup || $voda == $cup){
+                if($voda){
                     echo("<p>$voda</p>");
                     for($i = 50; $i <= $cup && $i <= $voda; $i += $minValueVoda){
                         $result = ($minValueVoda * $sugar / $voda) * 5; 
