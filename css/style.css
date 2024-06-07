@@ -1,0 +1,7 @@
+.display-flex{
+    display: flex;
+}
+.logo{
+    justify-content: center;
+
+}
