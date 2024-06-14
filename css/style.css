@@ -1,7 +1,22 @@
+body{
+    background: url(../images/stena.png) no-repeat center/cover;
+}
 .display-flex{
     display: flex;
 }
 .logo{
     justify-content: center;
-
+}
+.pre-work{
+    justify-content: center;
+}
+.work p{
+    font-family: "Oswald";
+    font-size: 28px;
+    font-style: normal;
+}
+.work{
+    text-align: center;
+    overflow-y: scroll;
+    max-height: 555px;
 }
