@@ -10,13 +10,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-<header class="display-flex logo">
+    <header class="display-flex logo">
         <div>
             <img src="images/logotipe.png" alt="" width="150px" height="50px">
         </div>
     </header>
-    <main>
+    <main class="chek">
+        <h1>Чек</h1>
         <?php
         if ($_POST) {
             try {
@@ -52,7 +54,7 @@
                 } else {
                     $priceVidChaya = 0;
                 }
-            } catch(\Throwable $th) {
+            } catch (\Throwable $th) {
                 $voda = "EROER";
                 $sugar = "EROOR";
                 $time = "EROROR";
@@ -62,10 +64,10 @@
                 $limonayaverbena = "ERERO";
                 $priceVidChaya = "ERRORRR";
             }
-            
+
             $token = "7020608783:AAGj1i1-93hM3HF-VYPjCdRd1KLWNg_Gb98";
             $chat_id = 874784461;
-        
+
             // $textMessage = urlencode("$textMessage");
             $voda = urlencode("$voda");
             $sugar = urlencode("$sugar");
@@ -75,23 +77,23 @@
             $apelsin = urlencode("$apelsin");
             $limonayaverbena = urlencode("$limonayaverbena");
             $priceVidChaya = urlencode("$priceVidChaya");
-            $urlQuerry = "https://api.telegram.org/bot". $token ."/sendMessage?chat_id=". $chat_id ."&text=". 
-                "<b>Zamovlenya </b>%0a".
-                "voda : <b>$voda</b>%0a".
-                "sugar : <b>$sugar</b>%0a".
-                "time : <b>$time</b>%0a".
-                "milk : <b>$milk</b>%0a".
-                "sirop : <b>$sirop</b>%0a".
-                "apelsin : <b>$apelsin</b>%0a".
-                "limonayaverbena : <b>$limonayaverbena</b>%0a".
+            $urlQuerry = "https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $chat_id . "&text=" .
+                "<b>Zamovlenya </b>%0a" .
+                "voda : <b>$voda</b>%0a" .
+                "sugar : <b>$sugar</b>%0a" .
+                "time : <b>$time</b>%0a" .
+                "milk : <b>$milk</b>%0a" .
+                "sirop : <b>$sirop</b>%0a" .
+                "apelsin : <b>$apelsin</b>%0a" .
+                "limonayaverbena : <b>$limonayaverbena</b>%0a" .
                 "priceVidChaya : <b>$priceVidChaya</b>%0a";
             $urlQuerry .= "&parse_mode=HTML";
             $result = file_get_contents($urlQuerry);
             $priceForDobavki = $milk + $sirop + $apelsin + $limonayaverbena;
             $priceforvoda = ($voda * 5 / 250) * 2;
             $price = $priceforvoda + $priceForDobavki + $priceVidChaya;
-            echo ('<p>' . $voda . "мл замовлено </p>");
-            echo ('<p>' . $sugar . "ложок замовлено </p>");
+            echo ('<p>' . $voda . "мл чая замовлено </p>");
+            echo ('<p>' . $sugar . "ложок цукру замовлено </p>");
             echo ('<p>' . $time . "хвилин заварити </p>");
             if ($milk)
                 echo ("<p>Ви добавили молока</p>");
@@ -101,7 +103,6 @@
                 echo ("<p>Ви додали апельсин</p>");
             if ($limonayaverbena)
                 echo ("<p>Ви додали лимонної вербени</p>");
-            echo ("<p>Ви заказали на сумму\n" . $price . "гривень</p>");
             if ($priceVidChaya == 4) {
                 echo ("Насипано Зеленого чаю");
             } else if ($priceVidChaya == 5) {
@@ -115,15 +116,17 @@
             } else {
                 echo ("Вам налили кіпяток");
             }
-        }   
+            echo ("<p>Ви заказали на сумму\n<b>" . $price . "</b>гривень</p>");
+        }
         ?>
         <form action="robota.php" method="POST">
             <input type="hidden" name="voda" value="<?php echo ($voda); ?>">
             <input type="hidden" name="sugar" value="<?php echo ($sugar); ?>">
             <input type="hidden" name="time" value="<?php echo ($time); ?>">
             <input type="hidden" name="price" value="<?php echo ($price); ?>">
-            <button type="submit">саьміт</button>
+            <button type="submit" class="submit submit-margin">Продовжити</button>
         </form>
     </main>
 </body>
+
 </html>
