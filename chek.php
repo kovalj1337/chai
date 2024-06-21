@@ -66,57 +66,87 @@
             }
 
             $token = "7020608783:AAGj1i1-93hM3HF-VYPjCdRd1KLWNg_Gb98";
-            $chat_id = 874784461;
+            $chat_id = -1002204228941;
 
             // $textMessage = urlencode("$textMessage");
             $voda = urlencode("$voda");
             $sugar = urlencode("$sugar");
             $time = urlencode("$time");
-            $milk = urlencode("$milk");
-            $sirop = urlencode("$sirop");
-            $apelsin = urlencode("$apelsin");
-            $limonayaverbena = urlencode("$limonayaverbena");
             $priceVidChaya = urlencode("$priceVidChaya");
-            $urlQuerry = "https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $chat_id . "&text=" .
-                "<b>Zamovlenya </b>%0a" .
-                "voda : <b>$voda</b>%0a" .
-                "sugar : <b>$sugar</b>%0a" .
-                "time : <b>$time</b>%0a" .
-                "milk : <b>$milk</b>%0a" .
-                "sirop : <b>$sirop</b>%0a" .
-                "apelsin : <b>$apelsin</b>%0a" .
-                "limonayaverbena : <b>$limonayaverbena</b>%0a" .
-                "priceVidChaya : <b>$priceVidChaya</b>%0a";
-            $urlQuerry .= "&parse_mode=HTML";
-            $result = file_get_contents($urlQuerry);
             $priceForDobavki = $milk + $sirop + $apelsin + $limonayaverbena;
             $priceforvoda = ($voda * 5 / 250) * 2;
             $price = $priceforvoda + $priceForDobavki + $priceVidChaya;
+            $dodatki = "";
+            if(isset($_POST["milk"])){
+                $milktelegram = urlencode("$milk");
+                $milktelegram = "На скільки гривень молока : <b>$milktelegram</b>%0a";
+            }else{
+                $milktelegram = "";
+            }
+            if(isset($_POST["sirop"])){
+                $siroptelegram = urlencode("$sirop");
+                $siroptelegram = "На скільки гривень сиропа : <b>$siroptelegram</b>%0a";
+            }else{
+                $siroptelegram = "";
+            }
+            if(isset($_POST["apelsin"])){
+                $apelsintelegram = urlencode("$apelsin");
+                $apelsintelegram = "На скільки гривень апельсина : <b>$apelsintelegram</b>%0a";
+            }else{
+                $apelsintelegram = "";
+            }
+            if(isset($_POST["limonayaverbena"])){
+                $limonayaverbenatelegram = urlencode("$limonayaverbena");
+                $limonayaverbenatelegram = "На скільки гривень лимонної вербени : <b>$limonayaverbenatelegram</b>%0a";
+            }else{
+                $limonayaverbenatelegram = "";
+            }
+            $urlQuerry = "https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $chat_id . "&text=" .
+                "<b>Zamovlenya </b>%0a" .
+                "Кількість мл : <b>$voda</b>%0a" .
+                "Ложок цукру : <b>$sugar</b>%0a" .
+                "Час заварки : <b>$time</b>%0a" .
+                "=== ** === ** ===%0a" . 
+                "Додатки%0a" . 
+                $milktelegram . 
+                $siroptelegram . 
+                $apelsintelegram . 
+                $limonayaverbenatelegram . 
+                "=== ** === ** ===%0a" .
+                "Ціна за воду : <b>$priceforvoda</b>%0a" .
+                "Ціна за чай : <b>$priceVidChaya</b>%0a" .
+                "Ціна за все : <b>$price</b>%0a";
+            $urlQuerry .= "&parse_mode=HTML";
+            $result = file_get_contents($urlQuerry);
             echo ('<p>' . $voda . "мл чая замовлено </p>");
             echo ('<p>' . $sugar . "ложок цукру замовлено </p>");
             echo ('<p>' . $time . "хвилин заварити </p>");
             if ($milk)
-                echo ("<p>Ви добавили молока</p>");
+                echo ("<p>Ви добавили молока за 5 гривень</p>");
             if ($sirop)
-                echo ("<p>Ви додали сиропу</p>");
+                echo ("<p>Ви додали сиропу за 6 гривень</p>");
             if ($apelsin)
-                echo ("<p>Ви додали апельсин</p>");
+                echo ("<p>Ви додали апельсин за 7 гривень</p>");
             if ($limonayaverbena)
-                echo ("<p>Ви додали лимонної вербени</p>");
+                echo ("<p>Ви додали лимонної вербени за 12 гривень</p>");
+            if ($priceForDobavki){
+                echo("Ви добавили добавок на\n" . $priceForDobavki . "\n гривень");
+            }
             if ($priceVidChaya == 4) {
-                echo ("Насипано Зеленого чаю");
+                echo ("Насипано Зеленого чаю за 4 гривні");
             } else if ($priceVidChaya == 5) {
-                echo ("Насипано Чорного чаю");
+                echo ("Насипано Чорного чаю за 5 гривень");
             } else if ($priceVidChaya == 6) {
-                echo ("Насипано листового чаю");
+                echo ("Насипано листового чаю за 6 гривень");
             } else if ($priceVidChaya == 7) {
-                echo ("Насипано травяного чаю");
+                echo ("Насипано травяного чаю за 7 гривень");
             } else if ($priceVidChaya == 777) {
-                echo ("Насипано Чай, TM 'Teahouse' Матча червона з Пітахайі");
+                echo ("<p class='pitaxaya'>Насипано Чай, TM 'Teahouse' Матча червона з Пітахайі за 777 гривень</p>");
             } else {
                 echo ("Вам налили кіпяток");
             }
-            echo ("<p>Ви заказали на сумму\n<b>" . $price . "</b>гривень</p>");
+            echo("<p>Ви заказали об'єм води на\n" . $priceforvoda . "\nгривень</p>");
+            echo ("<p>Ви заказали на сумму\n<b>" . $price . "</b>\nгривень</p>");
         }
         ?>
         <form action="robota.php" method="POST">
@@ -124,6 +154,10 @@
             <input type="hidden" name="sugar" value="<?php echo ($sugar); ?>">
             <input type="hidden" name="time" value="<?php echo ($time); ?>">
             <input type="hidden" name="price" value="<?php echo ($price); ?>">
+            <input type="hidden" name="milk" value="<?php echo($milk) ?>">
+            <input type="hidden" name="sirop" value="<?php echo($sirop) ?>">
+            <input type="hidden" name="apelsin" value="<?php echo($apelsin) ?>">
+            <input type="hidden" name="limonayaverbena" value="<?php echo($limonayaverbena) ?>">
             <button type="submit" class="submit submit-margin">Продовжити</button>
         </form>
     </main>

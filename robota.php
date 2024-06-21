@@ -27,6 +27,10 @@
                     $sugar = $_POST["sugar"];
                     $time = $_POST["time"];
                     $price = $_POST["price"];
+                    $milk = $_POST["milk"];
+                    $sirop = $_POST["sirop"];
+                    $apelsin = $_POST["apelsin"];
+                    $limonayaverbena = $_POST["limonayaverbena"];
                     if ($voda <= 250) {
                         $onecuponesugar = 1;
                     } else {
@@ -62,10 +66,14 @@
                                     echo ("<p>Насипано " . $sugar . "ложок цукру</p>");
                                     echo ("<p>Чай робився " . $time . "хвилин</p>");
                                 }
+                                if($milk) echo("<p>Налито молока</p>");
+                                if($sirop) echo("<p>Налито сиропа</p>");
+                                if($apelsin) echo("<p>Добавлений апельсин</p>");
+                                if($limonayaverbena) echo("<p>Добавлено лимоної вербени</p>");
                             }
-
                         }
                     }
+                    echo("<p>Вода закінчилась<p>");
                 }
                 ?>
             </div>
